@@ -1,5 +1,5 @@
 pipeline {
-        agent any
+        agent {label'terra-slave'}
         stages {
         stage('cloneproject'){
         steps{
@@ -9,6 +9,7 @@ pipeline {
     }
     }
         stage('init') {
+
         steps{
                 sh 'terraform init'
                 }
