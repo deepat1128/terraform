@@ -28,10 +28,11 @@ pipeline {
                 }
                 }
 stage('apply') {
-        steps{
-                sh 'terraform apply --auto-aprove'
-                }
-                }
+    steps {
+        sh 'terraform apply --auto-approve'
+    }
+}
+
                 }
 }
 
