@@ -6,7 +6,7 @@ pipeline {
         steps{
     git (
           credentialsId: 'deepaoum1128@gmail.com',
-          branch:'master',url:'hhttps://github.com/deepat1128/terraform')
+          branch:'master',url:'https://github.com/deepat1128/terraform')
     }
     }
         stage('init') {
