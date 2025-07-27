@@ -2,6 +2,7 @@ pipeline {
         agent {label'terra-slave'}
         stages {
         stage('cloneproject'){
+                
         steps{
     git (
           credentialsId: 'deepaoum1128@gmail.com',
