@@ -1,0 +1,172 @@
+To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code SYLNRGSW6 to authenticate.
+
+Retrieving tenants and subscriptions for the selection...
+The following tenants don't contain accessible subscriptions. Use `az login --allow-no-subscriptions` to have tenant level access.
+87293608-cc7b-4c66-ae6e-e017ffbd56bd 'Default Directory'
+
+[Tenant and subscription selection]
+
+No     Subscription name     Subscription ID                       Tenant
+-----  --------------------  ------------------------------------  -----------------
+[1]    Azure subscription 1  55345a3a-788c-447f-8807-fc7a3771166b  Default Directory
+[2] *  Azure subscription 1  2cd6d428-316d-4f0e-8101-006affa7efc1  Default Directory
+
+The default is marked with an *; the default tenant is 'Default Directory' and subscription is 'Azure subscription 1' (2cd6d428-316d-4f0e-8101-006affa7efc1).
+
+Select a subscription and tenant (Type a number or Enter for no changes): 
+
+Tenant: Default Directory
+Subscription: Azure subscription 1 (2cd6d428-316d-4f0e-8101-006affa7efc1)
+
+[Announcements]
+With the new Azure CLI login experience, you can select the subscription you want to use more easily. Learn more about it and its configuration at https://go.microsoft.com/fwlink/?linkid=2271236
+
+If you encounter any problem, please open an issue at https://aka.ms/azclibug
+
+[Warning] The login output has been updated. Please be aware that it no longer displays the full list of available subscriptions by default.
+
+deepa [ ~ ]$ az ad sp create-for-rbac --role="contributor" --scopes="/subscriptions/2cd6d428-316d-4f0e-8101-006affa7efc1"
+Creating 'contributor' role assignment under scope '/subscriptions/2cd6d428-316d-4f0e-8101-006affa7efc1'
+The output includes credentials that you must protect. Be sure that you do not include these credentials in your code or check the credentials into your source control. For more information, see https://aka.ms/azadsp-cli
+{
+  "appId": "194037ca-ce17-4df1-a380-23fd62e04f21",
+  "displayName": "azure-cli-2025-07-29-17-03-24",
+  "password": 
+  "tenant": "8b04c66e-b2d3-49e0-892b-c799aa916ea9"
+}
+deepa [ ~ ]$ 
+deepa [ ~ ]$ mkdir azure
+deepa [ ~ ]$ cd azure
+deepa [ ~/azure ]$ vi rg.tf
+deepa [ ~/azure ]$ vi vnet.tf
+deepa [ ~/azure ]$ terraform fmt
+rg.tf
+vnet.tf
+deepa [ ~/azure ]$ terraform init
+Initializing the backend...
+Initializing provider plugins...
+- Finding latest version of hashicorp/azurerm...
+- Installing hashicorp/azurerm v4.37.0...
+- Installed hashicorp/azurerm v4.37.0 (signed by HashiCorp)
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+deepa [ ~/azure ]$ 
+deepa [ ~/azure ]$ terraform apply
+╷
+│ Error: Missing required argument
+│ 
+│   with provider["registry.terraform.io/hashicorp/azurerm"],
+│   on provider.tf line 10, in provider "azurerm":
+│   10: provider "azurerm" {
+│ 
+│ The argument "features" is required, but no definition was found.
+╵
+deepa [ ~/azure ]$ 
+deepa [ ~/azure ]$ vi provider.tf
+deepa [ ~/azure ]$ terraform init
+Initializing the backend...
+Initializing provider plugins...
+- Reusing previous version of hashicorp/azurerm from the dependency lock file
+- Using previously-installed hashicorp/azurerm v4.37.0
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+deepa [ ~/azure ]$ terraform apply
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+# azurerm_resource_group.example will be created
+  + resource "azurerm_resource_group" "example" {
+      + id       = (known after apply)
+      + location = "westus2"
+      + name     = "teraformrg"
+    }
+
+  # azurerm_virtual_network.example will be created
+  + resource "azurerm_virtual_network" "example" {
+      + address_space                  = [
+          + "10.0.0.0/16",
+        ]
+      + dns_servers                    = (known after apply)
+      + guid                           = (known after apply)
+      + id                             = (known after apply)
+      + location                       = "westus2"
+      + name                           = "vanettf"
+      + private_endpoint_vnet_policies = "Disabled"
+      + resource_group_name            = "teraformrg"
+      + subnet                         = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+azurerm_resource_group.example: Creating...
+azurerm_virtual_network.example: Creating...
+azurerm_resource_group.example: Still creating... [00m10s elapsed]
+azurerm_virtual_network.example: Still creating... [00m10s elapsed]
+azurerm_virtual_network.example: Creation complete after 11s [id=/subscriptions/2cd6d428-316d-4f0e-8101-006affa7efc1/resourceGroups/teraformrg/providers/Microsoft.Network/virtualNetworks/vanettf]
+azurerm_resource_group.example: Creation complete after 15s [id=/subscriptions/2cd6d428-316d-4f0e-8101-006affa7efc1/resourceGroups/teraformrg]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+deepa [ ~/azure ]$ 
+deepa [ ~/azure ]$ vi snet.tf
+deepa [ ~/azure ]$ terraform apply
+azurerm_resource_group.example: Refreshing state... [id=/subscriptions/2cd6d428-316d-4f0e-8101-006affa7efc1/resourceGroups/teraformrg]
+azurerm_virtual_network.example: Refreshing state... [id=/subscriptions/2cd6d428-316d-4f0e-8101-006affa7efc1/resourceGroups/teraformrg/providers/Microsoft.Network/virtualNetworks/vanettf]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # azurerm_subnet.example will be created
+  + resource "azurerm_subnet" "example" {
+      + address_prefixes                              = [
+          + "10.0.1.0/24",
+        ]
+      + default_outbound_access_enabled               = true
+      + id                                            = (known after apply)
+      + name                                          = "snettf"
+      + private_endpoint_network_policies             = "Disabled"
+      + private_link_service_network_policies_enabled = true
+      + resource_group_name                           = "teraformrg"
+      + virtual_network_name                          = "vanettf"
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+azurerm_subnet.example: Creating...
+azurerm_subnet.example: Creation complete after 8s [id=/subscriptions/2cd6d428-316d-4f0e-8101-006affa7efc1/resourceGroups/teraformrg/providers/Microsoft.Network/virtualNetworks/vanettf/subnets/snettf]
+
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+deepa [ ~/azure ]$ 
