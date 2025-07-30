@@ -22,13 +22,15 @@ variable filename {
 -----------------------------------------------------------------------
 resource "local_file" "f2" {
           filename = each.value
-          for_each = toset[var.filename2]
+          for_each = toset(var.filename2)
           content = " for each looping "
           }
 variable "filename2" {
         type = list(string)
         default = ["aa","aa","cc","cc","bb"]
         }
+injecting in command line:
+t apply -var='filename2=["a1", "b1", "c1"]'
 ------------------------------------------------------------------------
 resource "local_file" "f3" {
           filename = var.filename3
@@ -43,11 +45,11 @@ resource "local_file" "f4" {
           content = " implicit dependency "
           }
 -----------------------------------------------------------------------
-resource "local_file" "f5"
+resource "local_file" "f5" {
           filename = " swathi "
           content = " hi "
 }
-resource "local_file" "f6"
+resource "local_file" "f6" {
           filename = "abc"
           content = " explicit or indirect dependency "
           depends_on = [local_file.f5]
