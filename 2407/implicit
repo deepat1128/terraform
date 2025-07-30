@@ -1,0 +1,358 @@
+deepa@ubuntu:~/devops/terraform$ ls
+1807  2107  2307  2707class  Jenkinsfile  README.md  terra-class        variable
+1907  2207  2407  file1.txt  provider.tf  res.tf     terraform.tfstate
+deepa@ubuntu:~/devops/terraform$ cd terra-class
+deepa@ubuntu:~/devops/terraform/terra-class$ ls
+1807  1907  2107  2207  2307  2407  2707  2707class  file1.txt  file2.txt  README.md
+deepa@ubuntu:~/devops/terraform/terra-class$ cd 2407
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ ls
+res.tf
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ vi res.tf
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ alias t=terraform
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ t init
+Initializing the backend...
+Initializing provider plugins...
+- Finding latest version of hashicorp/local...
+- Installing hashicorp/local v2.5.3...
+- Installed hashicorp/local v2.5.3 (signed by HashiCorp)
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ t fmt
+res.tf
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ vi res.tf
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ t plan
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # local_file.f3 will be created
+  + resource "local_file" "f3" {
+      + content              = "implicit or direct dependency"
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = " deepa "
+      + id                   = (known after apply)
+    }
+
+  # local_file.f4 will be created
+  + resource "local_file" "f4" {
+      + content              = " implicit dependency "
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = (known after apply)
+      + id                   = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these
+actions if you run "terraform apply" now.
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ t apply
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # local_file.f3 will be created
+  + resource "local_file" "f3" {
+      + content              = "implicit or direct dependency"
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = " deepa "
+      + id                   = (known after apply)
+    }
+
+  # local_file.f4 will be created
+  + resource "local_file" "f4" {
+      + content              = " implicit dependency "
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = (known after apply)
+      + id                   = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+local_file.f3: Creating...
+local_file.f3: Creation complete after 0s [id=49665b969388b72c4064b61b3c08b66c20ecbf7f]
+local_file.f4: Creating...
+local_file.f4: Creation complete after 0s [id=4d0b347e4698b2867dbdd728bef6d429ea766191]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ ls
+ 49665b969388b72c4064b61b3c08b66c20ecbf7f  ' deepa '   res.tf   terraform.tfstate
+deepa@ubuntu:~/devops/terraform/terra-class/2407$
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ tree -a
+.
+├── 49665b969388b72c4064b61b3c08b66c20ecbf7f
+├──  deepa
+├── res.tf
+├── .terraform
+│   └── providers
+│       └── registry.terraform.io
+│           └── hashicorp
+│               └── local
+│                   └── 2.5.3
+│                       └── linux_amd64
+│                           ├── LICENSE.txt
+│                           └── terraform-provider-local_v2.5.3_x5
+├── .terraform.lock.hcl
+└── terraform.tfstate
+
+8 directories, 7 files
+deepa@ubuntu:~/devops/terraform/terra-class/2407$
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ ls
+ 49665b969388b72c4064b61b3c08b66c20ecbf7f  ' deepa '   res.tf   terraform.tfstate.copy   terraform.xyz
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ t refresh
+╷
+│ Warning: Empty or non-existent state
+│
+│ There are currently no remote objects tracked in the state, so there is nothing to refresh.
+╵
+deepa@ubuntu:~/devops/terraform/terra-class/2407$
+
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ t plan
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # local_file.f3 will be created
+  + resource "local_file" "f3" {
+      + content              = "implicit or direct dependency"
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = " deepa "
+      + id                   = (known after apply)
+    }
+
+  # local_file.f4 will be created
+  + resource "local_file" "f4" {
+      + content              = " implicit dependency "
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = (known after apply)
+      + id                   = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these
+actions if you run "terraform apply" now.
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ ls
+ 49665b969388b72c4064b61b3c08b66c20ecbf7f   res.tf              terraform.tfstate.copy
+' deepa '                                   terraform.tfstate   terraform.xyz
+###### .tfstate file recreated
+
+
+
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ t apply
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # local_file.f3 will be created
+  + resource "local_file" "f3" {
+      + content              = "implicit or direct dependency"
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = " deepa "
+      + id                   = (known after apply)
+    }
+
+  # local_file.f4 will be created
+  + resource "local_file" "f4" {
+      + content              = " implicit dependency "
+      + content_base64sha256 = (known after apply)
+      + content_base64sha512 = (known after apply)
+      + content_md5          = (known after apply)
+      + content_sha1         = (known after apply)
+      + content_sha256       = (known after apply)
+      + content_sha512       = (known after apply)
+      + directory_permission = "0777"
+      + file_permission      = "0777"
+      + filename             = (known after apply)
+      + id                   = (known after apply)
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+local_file.f3: Creating...
+local_file.f3: Creation complete after 0s [id=49665b969388b72c4064b61b3c08b66c20ecbf7f]
+local_file.f4: Creating...
+local_file.f4: Creation complete after 0s [id=4d0b347e4698b2867dbdd728bef6d429ea766191]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ ls
+ 49665b969388b72c4064b61b3c08b66c20ecbf7f   res.tf              terraform.tfstate.backup   terraform.xyz
+' deepa '                                   terraform.tfstate   terraform.tfstate.copy
+
+
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ t destroy
+local_file.f3: Refreshing state... [id=49665b969388b72c4064b61b3c08b66c20ecbf7f]
+local_file.f4: Refreshing state... [id=4d0b347e4698b2867dbdd728bef6d429ea766191]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated
+with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # local_file.f3 will be destroyed
+  - resource "local_file" "f3" {
+      - content              = "implicit or direct dependency" -> null
+      - content_base64sha256 = "EWOe65juD4JbP22FT8yt8JKFCLCe/cYghTgv+4mlYpE=" -> null
+      - content_base64sha512 = "Mluj8GIfq0MuUHa2uAmdozjHZkmCnsjFcUsQSOeuWOshbulEFANUzmKnhGfrRi6REM7IlnxS9bX9KHdrJI               e95g==" -> null
+      - content_md5          = "8c5bfc5eb8aeaeadb0e40a9894479dc9" -> null
+      - content_sha1         = "49665b969388b72c4064b61b3c08b66c20ecbf7f" -> null
+      - content_sha256       = "11639eeb98ee0f825b3f6d854fccadf0928508b09efdc62085382ffb89a56291" -> null
+      - content_sha512       = "325ba3f0621fab432e5076b6b8099da338c76649829ec8c5714b1048e7ae58eb216ee944140354ce62               a78467eb462e9110cec8967c52f5b5fd28776b2487bde6" -> null
+      - directory_permission = "0777" -> null
+      - file_permission      = "0777" -> null
+      - filename             = " deepa " -> null
+      - id                   = "49665b969388b72c4064b61b3c08b66c20ecbf7f" -> null
+    }
+
+  # local_file.f4 will be destroyed
+  - resource "local_file" "f4" {
+      - content              = " implicit dependency " -> null
+      - content_base64sha256 = "NdhRvDK2+oNno7HhvgrclS5bzgydLxMSVu9sp3yf9u4=" -> null
+      - content_base64sha512 = "zWNguEHb5Lx1uXV7TZ/Kyp+vNnVZ3bWmzzx6czPc7a7ZCPWhD6qYuDD1S6bc2QUUVkOSEVoZZHCUnguZ7k               DhfA==" -> null
+      - content_md5          = "36f8c5140a88f23f2471de44f2d15283" -> null
+      - content_sha1         = "4d0b347e4698b2867dbdd728bef6d429ea766191" -> null
+      - content_sha256       = "35d851bc32b6fa8367a3b1e1be0adc952e5bce0c9d2f131256ef6ca77c9ff6ee" -> null
+      - content_sha512       = "cd6360b841dbe4bc75b9757b4d9fcaca9faf367559ddb5a6cf3c7a7333dcedaed908f5a10faa98b830               f54ba6dcd90514564392115a196470949e0b99ee40e17c" -> null
+      - directory_permission = "0777" -> null
+      - file_permission      = "0777" -> null
+      - filename             = "49665b969388b72c4064b61b3c08b66c20ecbf7f" -> null
+      - id                   = "4d0b347e4698b2867dbdd728bef6d429ea766191" -> null
+    }
+
+Plan: 0 to add, 0 to change, 2 to destroy.
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+local_file.f4: Destroying... [id=4d0b347e4698b2867dbdd728bef6d429ea766191]
+local_file.f4: Destruction complete after 0s
+local_file.f3: Destroying... [id=49665b969388b72c4064b61b3c08b66c20ecbf7f]
+local_file.f3: Destruction complete after 0s
+
+Destroy complete! Resources: 2 destroyed.
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ ls
+res.tf  terraform.tfstate  terraform.tfstate.backup  terraform.tfstate.copy  terraform.xyz
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ tree -a
+.
+├── res.tf
+├── .terraform
+│   └── providers
+│       └── registry.terraform.io
+│           └── hashicorp
+│               └── local
+│                   └── 2.5.3
+│                       └── linux_amd64
+│                           ├── LICENSE.txt
+│                           └── terraform-provider-local_v2.5.3_x5
+├── .terraform.lock.hcl
+├── terraform.tfstate
+├── terraform.tfstate.backup
+├── terraform.tfstate.copy
+└── terraform.xyz
+
+8 directories, 8 files
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ ls -lrt
+total 20
+-rw-rw-r-- 1 deepa deepa  267 Jul 30 00:08 res.tf
+-rw-rw-r-- 1 deepa deepa 3181 Jul 30 00:10 terraform.xyz
+-rw-rw-r-- 1 deepa deepa 3181 Jul 30 00:15 terraform.tfstate.copy
+-rw-rw-r-- 1 deepa deepa 3181 Jul 30 00:40 terraform.tfstate.backup
+-rw-rw-r-- 1 deepa deepa  181 Jul 30 00:40 terraform.tfstate
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ ls -a
+.   res.tf      .terraform.lock.hcl  terraform.tfstate.backup  terraform.xyz
+..  .terraform  terraform.tfstate    terraform.tfstate.copy
+
+
+
