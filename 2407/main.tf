@@ -1,8 +1,9 @@
 Class Practice:
 resource "local_file" "f1" {
-          filename = var.filename1[count.index]
+          count = length(var.filename)
+          filename = var.filename[count.index]
           content = "count looping"
-          count = lenghth(var.filename)
+          
           }
 variable filename {
           type = list(string)
