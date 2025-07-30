@@ -1,9 +1,27 @@
 deepa@ubuntu:~/devops/terraform/terra-class/2407$ t apply
+local_file.f0: Refreshing state... [id=a9993e364706816aba3e25717850c26c9cd0d89d]
 
 Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
   + create
+  - destroy
 
 Terraform will perform the following actions:
+
+  # local_file.f0 will be destroyed
+  # (because local_file.f0 is not in configuration)
+  - resource "local_file" "f0" {
+      - content              = "abc" -> null
+      - content_base64sha256 = "ungWv48Bz+pBQUDeXa4iI7ADYaOWF3qctBD/YfIAFa0=" -> null
+      - content_base64sha512 = "3a81oZNherrMQXNJriBBMRLm+k6JqX6iCp7u5ktV05ohkpkqJ0/BqDa6PCOj/uu9RU1EI2Q86A4qmslPpUyknw==" -> null
+      - content_md5          = "900150983cd24fb0d6963f7d28e17f72" -> null
+      - content_sha1         = "a9993e364706816aba3e25717850c26c9cd0d89d" -> null
+      - content_sha256       = "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad" -> null
+      - content_sha512       = "ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f" -> null
+      - directory_permission = "0777" -> null
+      - file_permission      = "0777" -> null
+      - filename             = "b" -> null
+      - id                   = "a9993e364706816aba3e25717850c26c9cd0d89d" -> null
+    }
 
   # local_file.f1[0] will be created
   + resource "local_file" "f1" {
@@ -50,37 +68,7 @@ Terraform will perform the following actions:
       + id                   = (known after apply)
     }
 
-  # local_file.f3 will be created
-  + resource "local_file" "f3" {
-      + content              = "implicit or direct dependency"
-      + content_base64sha256 = (known after apply)
-      + content_base64sha512 = (known after apply)
-      + content_md5          = (known after apply)
-      + content_sha1         = (known after apply)
-      + content_sha256       = (known after apply)
-      + content_sha512       = (known after apply)
-      + directory_permission = "0777"
-      + file_permission      = "0777"
-      + filename             = " deepa "
-      + id                   = (known after apply)
-    }
-
-  # local_file.f4 will be created
-  + resource "local_file" "f4" {
-      + content              = " implicit dependency "
-      + content_base64sha256 = (known after apply)
-      + content_base64sha512 = (known after apply)
-      + content_md5          = (known after apply)
-      + content_sha1         = (known after apply)
-      + content_sha256       = (known after apply)
-      + content_sha512       = (known after apply)
-      + directory_permission = "0777"
-      + file_permission      = "0777"
-      + filename             = (known after apply)
-      + id                   = (known after apply)
-    }
-
-Plan: 5 to add, 0 to change, 0 to destroy.
+Plan: 3 to add, 0 to change, 1 to destroy.
 
 Do you want to perform these actions?
   Terraform will perform the actions described above.
@@ -88,16 +76,29 @@ Do you want to perform these actions?
 
   Enter a value: yes
 
-local_file.f1[1]: Creating...
-local_file.f3: Creating...
+local_file.f0: Destroying... [id=a9993e364706816aba3e25717850c26c9cd0d89d]
+local_file.f0: Destruction complete after 0s
 local_file.f1[2]: Creating...
+local_file.f1[1]: Creating...
 local_file.f1[0]: Creating...
-local_file.f1[1]: Creation complete after 0s [id=fd0f15711584c194a023ba9dcb1d509f73783af3]
 local_file.f1[2]: Creation complete after 0s [id=fd0f15711584c194a023ba9dcb1d509f73783af3]
-local_file.f3: Creation complete after 0s [id=49665b969388b72c4064b61b3c08b66c20ecbf7f]
 local_file.f1[0]: Creation complete after 0s [id=fd0f15711584c194a023ba9dcb1d509f73783af3]
-local_file.f4: Creating...
-local_file.f4: Creation complete after 0s [id=4d0b347e4698b2867dbdd728bef6d429ea766191]
+local_file.f1[1]: Creation complete after 0s [id=fd0f15711584c194a023ba9dcb1d509f73783af3]
 
-Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+Apply complete! Resources: 3 added, 0 changed, 1 destroyed.
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ t state list
+local_file.f1[0]
+local_file.f1[1]
+local_file.f1[2]
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ ls
+aa  bb  cc  countres.tf  terraform.tfstate  terraform.tfstate.backup  terraform.tfstate.copy  terraform.xyz
 deepa@ubuntu:~/devops/terraform/terra-class/2407$
+deepa@ubuntu:~/devops/terraform/terra-class/2407$ t state list
+local_file.f1[0]
+local_file.f1[1]
+local_file.f1[2]
+local_file.f2["a"]
+local_file.f2["b"]
+local_file.f2["c"]
+deepa@ubuntu:~/devops/terraform/terra-class/2407$
+
