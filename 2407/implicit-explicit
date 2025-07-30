@@ -356,3 +356,44 @@ deepa@ubuntu:~/devops/terraform/terra-class/2407$ ls -a
 
 
 
+deepa@ubuntu:~/devops/terraform/terra-class/2407/dependency$ t state list
+local_file.f3
+local_file.f4
+local_file.f5
+local_file.f6
+deepa@ubuntu:~/devops/terraform/terra-class/2407/dependency$ ls
+ 49665b969388b72c4064b61b3c08b66c20ecbf7f   abc  ' deepa '   main.tf  ' swathi '   terraform.tfstate
+deepa@ubuntu:~/devops/terraform/terra-class/2407/dependency$ t state show
+Exactly one argument expected.
+Usage: terraform [global options] state show [options] ADDRESS
+
+  Shows the attributes of a resource in the Terraform state.
+
+  This command shows the attributes of a single resource in the Terraform
+  state. The address argument must be used to specify a single resource.
+  You can view the list of available resources with "terraform state list".
+
+Options:
+
+  -state=statefile    Path to a Terraform state file to use to look
+                      up Terraform-managed resources. By default it will
+                      use the state "terraform.tfstate" if it exists.
+deepa@ubuntu:~/devops/terraform/terra-class/2407/dependency$ t state show local_file.f3
+# local_file.f3:
+resource "local_file" "f3" {
+    content              = "implicit or direct dependency"
+    content_base64sha256 = "EWOe65juD4JbP22FT8yt8JKFCLCe/cYghTgv+4mlYpE="
+    content_base64sha512 = "Mluj8GIfq0MuUHa2uAmdozjHZkmCnsjFcUsQSOeuWOshbulEFANUzmKnhGfrRi6REM7IlnxS9bX9KHdrJIe95g=="
+    content_md5          = "8c5bfc5eb8aeaeadb0e40a9894479dc9"
+    content_sha1         = "49665b969388b72c4064b61b3c08b66c20ecbf7f"
+    content_sha256       = "11639eeb98ee0f825b3f6d854fccadf0928508b09efdc62085382ffb89a56291"
+    content_sha512       = "325ba3f0621fab432e5076b6b8099da338c76649829ec8c5714b1048e7ae58eb216ee944140354ce62a78467eb462e9110cec8967c52f5b5fd28776b2487bde6"
+    directory_permission = "0777"
+    file_permission      = "0777"
+    filename             = " deepa "
+    id                   = "49665b969388b72c4064b61b3c08b66c20ecbf7f"
+}
+deepa@ubuntu:~/devops/terraform/terra-class/2407/dependency$
+
+
+
