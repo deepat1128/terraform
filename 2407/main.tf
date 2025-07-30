@@ -38,7 +38,7 @@ resource "local_file" "f5"
 }
 resource "local_file" "f6"
           filename = "abc"
-          content = " how are you "
+          content = " explicit or indirect dependency "
           depends_on = [local_file.f5]
 }
 -----------------------------------------------------------------------
