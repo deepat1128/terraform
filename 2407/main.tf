@@ -1,4 +1,14 @@
 Class Practice:
+Generally:
+resource "local_file" "f0" {
+          filename = var.filename
+          content = "abc"
+          }
+variable filename {
+          type = list(string)
+          default = ["a", "b", "c" ]
+}
+
 resource "local_file" "f1" {
           count = length(var.filename)
           filename = var.filename[count.index]
