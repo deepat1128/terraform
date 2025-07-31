@@ -1,5 +1,5 @@
-resource "random_string" "random" {
-  length           = 16
-  special          = true
-  override_special = "/@£$"
+resource "local_file" "deepa" {
+  content  = "Hello, world!"
+  filename = "deepa_dir/xyz.txt"
 }
+
