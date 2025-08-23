@@ -7,3 +7,4 @@ Password=${azurerm_postgresql_flexible_server.postgres_server.administrator_pass
 Port=5432;
 EOT
 }
+
