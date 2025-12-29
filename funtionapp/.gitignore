@@ -1,0 +1,19 @@
+# Terraform state files
+terraform.tfstate
+terraform.tfstate.*
+*.tfstate
+*.tfstate.backup
+
+# Terraform working directory
+.terraform/
+
+# Terraform variable files (may contain secrets)
+terraform.tfvars
+*.tfvars
+
+# CLI crash logs
+crash.log
+
+# OS files
+.DS_Store
+
